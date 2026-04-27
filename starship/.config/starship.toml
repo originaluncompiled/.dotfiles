@@ -1,0 +1,25 @@
+add_newline = false
+command_timeout = 200
+
+format = """
+$username$directory$git_branch:
+$character
+"""
+
+[username]
+style_user = "bold #d8a657"
+format = "[$user ]($style_user) "
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+style = "bold #a9b665"
+format = "[$path]($style)"
+
+[git_branch]
+style = "bold #d3869b"
+format = '[ \($branch\)]($style)'
+
+[character]
+success_symbol = '[\$](bold #d4be98)'
+error_symbol = '[\$](bold red)'
