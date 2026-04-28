@@ -69,6 +69,15 @@ return {
             vim.cmd("startinsert")
         end
 
+        local function open_opencode_if_needed()
+            if opencode_win() then
+                return
+            end
+
+            require("opencode").toggle()
+            vim.schedule(focus_opencode)
+        end
+
         vim.g.opencode_opts = {
             server = {
                 start = function()
@@ -91,10 +100,12 @@ return {
 
         vim.keymap.set({ "n", "x" }, "<leader>oa", function()
             opencode.ask("@this: ", { submit = true })
+            open_opencode_if_needed()
         end, { desc = "Ask opencode" })
 
         vim.keymap.set({ "n", "x" }, "<leader>op", function()
             opencode.prompt("@this")
+            open_opencode_if_needed()
         end, { desc = "Prompt opencode with context" })
 
         vim.keymap.set({ "n", "t" }, "<leader>ai", function()
