@@ -28,5 +28,3 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.cmdheight = 2
-
-vim.diagnostic.config({ virtual_text = { prefix = "■" } })
