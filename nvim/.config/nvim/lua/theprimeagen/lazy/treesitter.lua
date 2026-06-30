@@ -10,7 +10,7 @@ return {
 
         local languages = {
             "vimdoc", "javascript", "typescript", "c", "lua", "rust",
-            "jsdoc", "bash", "python"
+            "jsdoc", "bash", "python", "html", "css", "svelte"
         }
 
         local treesitter = require("nvim-treesitter")

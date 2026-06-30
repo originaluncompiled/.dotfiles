@@ -124,6 +124,9 @@ eval "$(starship init bash)"
 alias temu='tmux'
 alias python='python3'
 alias pyrun='source .venv/bin/activate'
+py() {
+       "$(git rev-parse --show-toplevel)/.venv/bin/python" "$@"
+}
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

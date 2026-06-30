@@ -100,12 +100,11 @@ return {
 
         vim.keymap.set({ "n", "x" }, "<leader>oa", function()
             opencode.ask("@this: ", { submit = true })
-            open_opencode_if_needed()
         end, { desc = "Ask opencode" })
 
         vim.keymap.set({ "n", "x" }, "<leader>op", function()
-            opencode.prompt("@this")
             open_opencode_if_needed()
+            opencode.prompt("@this")
         end, { desc = "Prompt opencode with context" })
 
         vim.keymap.set({ "n", "t" }, "<leader>ai", function()
