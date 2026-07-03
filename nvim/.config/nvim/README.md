@@ -40,6 +40,7 @@ Leader key: `Space`
 
 | Shortcut | Mode | What it does |
 | --- | --- | --- |
+| `<Tab>` | Insert | Accept selected completion, or the first completion if none is selected. |
 | `gd` | Normal | Go to definition. |
 | `K` | Normal | Hover docs. |
 | `<leader>vws` | Normal | Workspace symbol search. |
@@ -50,6 +51,13 @@ Leader key: `Space`
 | `<C-h>` | Insert | Signature help. |
 | `[d` / `]d` | Normal | Next/previous diagnostic. |
 | `<leader>fr` | Normal | Format buffer. |
+
+## AI Completion
+
+| Shortcut | Mode | What it does |
+| --- | --- | --- |
+| `<C-y>` | Insert | Accept the full Supermaven suggestion. |
+| `<C-j>` | Insert | Clear the current Supermaven suggestion. |
 
 ## Lists And Navigation
 
