@@ -101,6 +101,7 @@ return {
 				end,
 			},
 			mapping = cmp.mapping.preset.insert({
+				["<C-y>"] = cmp.config.disable,
 				["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 				["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
 				["<CR>"] = cmp.mapping.confirm({ select = false }),
