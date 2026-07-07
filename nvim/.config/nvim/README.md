@@ -23,7 +23,7 @@ Leader key: `Space`
 | `J` / `K` | Visual | Move selected lines down/up. |
 | `<` / `>` | Visual | Indent and keep the selection. |
 | `J` | Normal | Join next line without moving cursor. |
-| `<C-d>` / `<C-u>` | Normal | Half-page down/up and recenter. |
+| `<A-j>` / `<A-k>` | Normal | Half-page down/up and recenter. |
 | `n` / `N` | Normal | Next/previous search result and recenter. |
 | `<leader>p` | Visual | Paste over selection without replacing yank. |
 | `<leader>y` | Normal/Visual | Yank to system clipboard. |
