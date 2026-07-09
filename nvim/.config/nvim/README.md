@@ -34,7 +34,6 @@ Leader key: `Space`
 | `<leader>s` | Normal | Start project-wide replace for word under cursor. |
 | `<leader>x` | Normal | Make current file executable. |
 | `<leader>ee` | Normal | Insert a Go `if err != nil` block. |
-| `<leader><leader>` | Normal | Source the current file. |
 
 ## LSP And Diagnostics
 
