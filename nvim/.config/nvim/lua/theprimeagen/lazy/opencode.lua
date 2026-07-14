@@ -12,28 +12,31 @@ return {
     },
     config = function()
         local opencode_cmd = "opencode --port"
-        local opencode_win_opts = {
-            split = "left",
-            width = 69,
+        local opencode_terminal_opts = {
+            win = {
+                position = "left",
+                width = 69,
+                on_win = function(win)
+                    vim.wo[win.win].winfixwidth = true
+                    vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], {
+                        buffer = win.buf,
+                        desc = "Window command from opencode",
+                    })
+                end,
+            },
         }
 
         local function opencode_win()
-            for _, win in ipairs(vim.api.nvim_list_wins()) do
-                local buf = vim.api.nvim_win_get_buf(win)
-                if vim.api.nvim_buf_get_name(buf):match("opencode") then
-                    return win
-                end
+            local terminal = require("snacks.terminal").get(opencode_cmd, { create = false })
+            if terminal and terminal:win_valid() then
+                return terminal.win
             end
         end
 
         local function fix_opencode_width(win)
             if win and vim.api.nvim_win_is_valid(win) then
-                vim.api.nvim_win_set_width(win, opencode_win_opts.width)
+                vim.api.nvim_win_set_width(win, opencode_terminal_opts.win.width)
                 vim.wo[win].winfixwidth = true
-                vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], {
-                    buffer = vim.api.nvim_win_get_buf(win),
-                    desc = "Window command from opencode",
-                })
             end
         end
 
@@ -74,21 +77,24 @@ return {
                 return
             end
 
-            require("opencode").toggle()
+            vim.g.opencode_opts.server.toggle()
             vim.schedule(focus_opencode)
         end
 
         vim.g.opencode_opts = {
             server = {
                 start = function()
-                    require("opencode.terminal").open(opencode_cmd, opencode_win_opts)
+                    require("snacks.terminal").get(opencode_cmd, opencode_terminal_opts)
                     refresh_opencode()
                 end,
                 stop = function()
-                    require("opencode.terminal").close()
+                    local terminal = require("snacks.terminal").get(opencode_cmd, { create = false })
+                    if terminal then
+                        terminal:close()
+                    end
                 end,
                 toggle = function()
-                    require("opencode.terminal").toggle(opencode_cmd, opencode_win_opts)
+                    require("snacks.terminal").toggle(opencode_cmd, opencode_terminal_opts)
                     refresh_opencode()
                 end,
             },
@@ -109,7 +115,7 @@ return {
 
         vim.keymap.set({ "n", "t" }, "<leader>ai", function()
             local was_open = opencode_win() ~= nil
-            opencode.toggle()
+            vim.g.opencode_opts.server.toggle()
             if not was_open then
                 vim.schedule(focus_opencode)
             end
