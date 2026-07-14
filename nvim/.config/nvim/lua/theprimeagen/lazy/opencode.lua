@@ -110,7 +110,7 @@ return {
 
         vim.keymap.set({ "n", "x" }, "<leader>op", function()
             open_opencode_if_needed()
-            opencode.prompt("@this")
+            opencode.prompt("@this ")
         end, { desc = "Prompt opencode with context" })
 
         vim.keymap.set({ "n", "t" }, "<leader>ai", function()
