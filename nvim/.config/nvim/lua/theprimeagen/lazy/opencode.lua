@@ -47,7 +47,9 @@ return {
                 return
             end
 
-            vim.cmd("topleft vertical split term://" .. opencode_cmd .. " | vertical resize " .. opencode_width)
+            vim.cmd("topleft vertical split")
+            vim.cmd("terminal ++close " .. opencode_cmd)
+            vim.cmd("vertical resize " .. opencode_width)
             fix_opencode_win(vim.api.nvim_get_current_win())
             vim.cmd("wincmd p")
         end

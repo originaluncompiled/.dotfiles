@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	lazy = false,
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
@@ -91,6 +92,10 @@ return {
 				end,
 			},
 		})
+
+		vim.schedule(function()
+			vim.cmd("doautocmd <nomodeline> FileType")
+		end)
 
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
