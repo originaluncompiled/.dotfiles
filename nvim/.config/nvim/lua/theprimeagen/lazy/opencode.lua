@@ -48,7 +48,20 @@ return {
             end
 
             vim.cmd("topleft vertical split")
-            vim.cmd("terminal ++close " .. opencode_cmd)
+            vim.cmd("terminal " .. opencode_cmd)
+            local buf = vim.api.nvim_get_current_buf()
+            vim.api.nvim_create_autocmd("TermClose", {
+                buffer = buf,
+                callback = function()
+                    if vim.v.event.status == 0 then
+                        vim.schedule(function()
+                            if vim.api.nvim_buf_is_valid(buf) then
+                                vim.api.nvim_buf_delete(buf, { force = true })
+                            end
+                        end)
+                    end
+                end,
+            })
             vim.cmd("vertical resize " .. opencode_width)
             fix_opencode_win(vim.api.nvim_get_current_win())
             vim.cmd("wincmd p")
