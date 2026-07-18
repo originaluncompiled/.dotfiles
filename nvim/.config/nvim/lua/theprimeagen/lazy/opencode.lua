@@ -13,6 +13,7 @@ return {
     config = function()
         local opencode_cmd = "opencode --port"
         local opencode_width = 69
+        local opencode_buf
 
         local function opencode_win()
             for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -47,16 +48,26 @@ return {
                 return
             end
 
+            if opencode_buf and vim.api.nvim_buf_is_valid(opencode_buf) then
+                vim.cmd("topleft vertical split")
+                vim.api.nvim_win_set_buf(0, opencode_buf)
+                vim.cmd("vertical resize " .. opencode_width)
+                fix_opencode_win(vim.api.nvim_get_current_win())
+                vim.cmd("wincmd p")
+                return
+            end
+
             vim.cmd("topleft vertical split")
             vim.cmd("terminal " .. opencode_cmd)
-            local buf = vim.api.nvim_get_current_buf()
+            opencode_buf = vim.api.nvim_get_current_buf()
             vim.api.nvim_create_autocmd("TermClose", {
-                buffer = buf,
+                buffer = opencode_buf,
                 callback = function()
                     if vim.v.event.status == 0 then
                         vim.schedule(function()
-                            if vim.api.nvim_buf_is_valid(buf) then
-                                vim.api.nvim_buf_delete(buf, { force = true })
+                            if opencode_buf and vim.api.nvim_buf_is_valid(opencode_buf) then
+                                vim.api.nvim_buf_delete(opencode_buf, { force = true })
+                                opencode_buf = nil
                             end
                         end)
                     end
